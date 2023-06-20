@@ -1,23 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+const App = () => {
 
-function App() {
+  
+  const getMessages = async ()=>{
+    const options ={ 
+        method: "POST" ,
+        headers : {
+            "Content-Type" : "application/json"
+        },   
+    body : JSON.stringify(
+        {
+            message : "who is alexander hamilton"
+            
+        }
+        )
+      }
+    console.log('button press')
+    try{
+      const response = await fetch ('http://localhost:8000/completions', options)
+        const data =  await response.json()
+        console.log(data)
+    }
+    catch(error){
+      console.log(error)
+    }
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <section className="sidebar">
+        <button>+ New Chat</button>
+        <ul className='history'>
+          <li>History </li>
+        </ul>
+        <nav>
+          <p>Brandon T. Bande</p>
+        </nav>
+      </section>
+      <section className="main">
+        <h1>ChatGPT </h1>
+        <ul className='feed'>
+
+        </ul>
+        <div className='bottom-section'>
+          <div className='input-container'>
+            <input />
+            <div id ='submit'
+                  onClick={
+                    getMessages
+                  }
+            
+            >➢</div>
+          </div>
+          <p className='info'>
+            This is a ChatGPT clone aimed at accessing the OpenAI API in ReactJS
+          </p>
+        </div>
+      </section>
     </div>
   );
 }
